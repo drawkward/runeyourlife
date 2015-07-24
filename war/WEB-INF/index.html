@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    	<meta name="description" content="INNERNETTE">
+	<meta name="keywords" content="software, development, apps, mobile, engineering, computer, cherokee street, saint louis university, slu, ADULT FUR, FARFETCHED, SAINT LOUIS, MUSIC, ELECTRONIC, EXPERIMENTAL, TEF POE, ROCKWELL KNUCKLES, VEGA, THERESA PAYNE, REVERBS, CAVEOFSWORDS, PROLOGUE, ALARM WILL SOUND">
+    <link type="text/css" rel="stylesheet" href="Runeyourlife.css">
+    <title>RUNE YOUR LIFE</title>
+    <script type="text/javascript" language="javascript" src="../runeyourlife/runeyourlife.nocache.js"></script>
+    <!--<script src="jquery.animate-colors-min.js"></script>
+    <script src="jquery/jquery-1.11.3.min.js"></script>-->
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script type='text/javascript' src='http://www.midijs.net/lib/midi.js'></script>
+  </head>
+  <body style="background-color:#FFFFFF" onload="stuff()">
+    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div>
+    </noscript>
+	<!--div id="bg_panel" style="position: absolute; top:50vh; left:70vw; z-index:-1; background-color:transparent;"></div-->
+	<!--
+	<div class="triangle-up-right"></div>
+	<div class="triangle-down-left"></div>
+	-->
+	<div class="info" id="stuff"></div>
+	<!--div class="square" id="zero" onclick="$('.square').animate({width:'+=10vw',height:'+=10vw'},1000);"></div-->
+	<script>
+		
+		pw = 0;
+		ph = 0;
+		function moveTriangles(obj,dir){
+			if(dir == 0){
+				$(obj).animate({backgroundColor: '#FFFFFF', left:'+=10vw', opacity:'-=0.1'},500,'swing',
+					function() {
+						$(obj).animate({backgroundColor: '#000000'},500,'swing',
+							function() { 
+								pw += 10;
+								if(pw >= 80){
+									ph += 10;
+									pw = 0;
+									$(obj).animate({top:'+=10vh',left:'0vw', opacity:'1'},500,'swing',
+										function() {
+											if(ph >= 40){
+												ph = 0;
+												$(obj).animate({top:'0vh'},500);
+											}
+										}
+									);
+								}
+								else if(ph >= 40){
+									ph = 0;
+									$(obj).animate({top:'0vh'},500);
+								}
+							}
+						);
+					}
+				);
+			}
+			else if(dir == 1){
+				$(obj).animate({backgroundColor: '#FFFFFF', left:'-=10vw', opacity:'-=0.1'},500,'swing',
+					function() {
+						$(obj).animate({backgroundColor: '#000000'},500,'swing',
+							function() { 
+								pw += 10;
+								if(pw >= 80){
+									ph += 10;
+									pw = 0;
+									$(obj).animate({top:'+=10vh',left:'90vw', opacity:'1'},500,'swing',
+										function() {
+											if(ph >= 40){
+												ph = 0;
+												$(obj).animate({top:'0vh'},500);
+											}
+										}
+									);
+								}
+								else if(ph >= 40){
+									ph = 0;
+									$(obj).animate({top:'0vh'},500);
+								}
+							}
+						);
+					}
+				);
+			}
+		}
+// create web audio api context
+		var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+		function playStuff(freq){
+		// create Oscillator and gain node
+			var oscillator = audioCtx.createOscillator();
+			var gainNode = audioCtx.createGain();
+			oscillator.connect(gainNode);
+			gainNode.connect(audioCtx.destination);
+			gainNode.gain.value = 0.1;
+			oscillator.type = 'triangle';
+			oscillator.frequency.value = freq;
+			var convolver = audioCtx.createConvolver();
+			convolver.buffer = impulseResponse(10,4,false);
+			oscillator.connect(convolver);
+			convolver.connect(audioCtx.destination);
+			oscillator.start(0);
+			window.setTimeout(function(){oscillator.stop(0);},2000);
+		}
+		
+		function impulseResponse( duration, decay, reverse ) {
+    		var sampleRate = audioCtx.sampleRate;
+    		var length = sampleRate * duration;
+   		 	var impulse = audioCtx.createBuffer(2, length, sampleRate);
+    		var impulseL = impulse.getChannelData(0);
+    		var impulseR = impulse.getChannelData(1);
+
+    		if (!decay)
+        		decay = 2.0;
+   			 for (var i = 0; i < length; i++){
+      			var n = reverse ? length - i : i;
+      			impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+      			impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+   			 }
+    		return impulse;
+		}
+		
+		function stuff(){
+			//window.setInterval(function(){moveTriangles('.square');}, 2001);
+			for(i = 0; i < 5; i++){
+				//console.log(i);
+				d = document.createElement('div');
+				d.id = String(i);
+				console.log("div id = "+d.id);
+				d.className = "square";
+				//var theID = "#"+String(i);
+				//d.onclick = function(){$(theID).animate({width:'+=10vw',height:'+=10vw'},1000);};
+				//console.log(d.onclick);
+				document.getElementsByTagName('body')[0].appendChild(d);
+			}
+			for(i = 6; i < 11; i++){
+				//console.log(i);
+				d = document.createElement('div');
+				d.id = String(i);
+				console.log("div id = "+d.id);
+				d.className = "rsquare";
+				//var theID = "#"+String(i);
+				//d.onclick = function(){$(theID).animate({width:'+=10vw',height:'+=10vw'},1000);};
+				//console.log(d.onclick);
+				document.getElementsByTagName('body')[0].appendChild(d);
+			}
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#0',0);}, 2001);
+				document.getElementById("0").onclick = function(){$('#0').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#0').animate({backgroundColor:'#3399ff'},1000,'swing',function(){playStuff(220);});}
+					);};
+				},1000);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#1',0);}, 2001);
+				document.getElementById("1").onclick = function(){$('#1').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#1').animate({backgroundColor:'#cc66ff'},1000,'swing',function(){playStuff(440);});}
+					);};
+				},2500);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#2',0);}, 2001);
+				document.getElementById("2").onclick = function(){$('#2').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#2').animate({backgroundColor:'#ff0066'},1000,'swing',function(){playStuff(110);});}
+					);};
+				},3700);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#3',0);}, 2001);
+				document.getElementById("3").onclick = function(){$('#3').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#3').animate({backgroundColor:'#ffcc00'},1000,'swing',function(){playStuff(138.59);});}
+					);};
+				},4100);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#4',0);}, 2001);
+				document.getElementById("4").onclick = function(){$('#4').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#4').animate({backgroundColor:'#66ff66'},1000,'swing',function(){playStuff(164.81);});}
+					);};
+				},5400);
+				
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#6',1);}, 2001);
+				document.getElementById("6").onclick = function(){$('#6').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#6').animate({backgroundColor:'#66ffcc'},1000,'swing',function(){playStuff(196);});}
+					);};
+				},1500);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#7',1);}, 2001);
+				document.getElementById("7").onclick = function(){$('#7').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#7').animate({backgroundColor:'#0033cc'},1000,'swing',function(){playStuff(493.88);});}
+					);};
+				},2800);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#8',1);}, 2001);
+				document.getElementById("8").onclick = function(){$('#8').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#8').animate({backgroundColor:'#ff999'},1000,'swing',function(){playStuff(207.65)});}
+					);};
+				},3200);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#9',1);}, 2001);
+				document.getElementById("9").onclick = function(){$('#9').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#9').animate({backgroundColor:'#6600cc'},1000,'swing',function(){playStuff(55);});}
+					);};
+				},4900);
+
+			window.setTimeout(function(){
+				window.setInterval(function(){moveTriangles('#10',1);}, 2001);
+				document.getElementById("10").onclick = function(){$('#10').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
+						function(){$('#10').animate({backgroundColor:'#ffff00'},1000,'swing',function(){playStuff(415.30);});}
+					);};
+				},5100);
+
+	}
+			
+	</script>
+
+  </body>
+</html>
