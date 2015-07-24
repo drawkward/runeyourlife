@@ -97,11 +97,11 @@
 			var gainNode = audioCtx.createGain();
 			oscillator.connect(gainNode);
 			gainNode.connect(audioCtx.destination);
-			gainNode.gain.value = 0.1;
+			gainNode.gain.value = 0.01;
 			oscillator.type = 'triangle';
 			oscillator.frequency.value = freq;
 			var convolver = audioCtx.createConvolver();
-			convolver.buffer = impulseResponse(10,4,false);
+			convolver.buffer = impulseResponse(6,4,false);
 			oscillator.connect(convolver);
 			convolver.connect(audioCtx.destination);
 			oscillator.start(0);
@@ -157,63 +157,63 @@
 				},1000);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#1',0);}, 2001);
+				window.setInterval(function(){moveTriangles('#1',0);}, 2501);
 				document.getElementById("1").onclick = function(){$('#1').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#1').animate({backgroundColor:'#cc66ff'},1000,'swing',function(){playStuff(440);});}
 					);};
 				},2500);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#2',0);}, 2001);
+				window.setInterval(function(){moveTriangles('#2',0);}, 3001);
 				document.getElementById("2").onclick = function(){$('#2').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#2').animate({backgroundColor:'#ff0066'},1000,'swing',function(){playStuff(110);});}
 					);};
 				},3700);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#3',0);}, 2001);
+				window.setInterval(function(){moveTriangles('#3',0);}, 3501);
 				document.getElementById("3").onclick = function(){$('#3').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#3').animate({backgroundColor:'#ffcc00'},1000,'swing',function(){playStuff(138.59);});}
 					);};
 				},4100);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#4',0);}, 2001);
+				window.setInterval(function(){moveTriangles('#4',0);}, 3401);
 				document.getElementById("4").onclick = function(){$('#4').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#4').animate({backgroundColor:'#66ff66'},1000,'swing',function(){playStuff(164.81);});}
 					);};
 				},5400);
 				
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#6',1);}, 2001);
+				window.setInterval(function(){moveTriangles('#6',1);}, 2601);
 				document.getElementById("6").onclick = function(){$('#6').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#6').animate({backgroundColor:'#66ffcc'},1000,'swing',function(){playStuff(196);});}
 					);};
 				},1500);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#7',1);}, 2001);
+				window.setInterval(function(){moveTriangles('#7',1);}, 2201);
 				document.getElementById("7").onclick = function(){$('#7').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#7').animate({backgroundColor:'#0033cc'},1000,'swing',function(){playStuff(493.88);});}
 					);};
 				},2800);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#8',1);}, 2001);
+				window.setInterval(function(){moveTriangles('#8',1);}, 3201);
 				document.getElementById("8").onclick = function(){$('#8').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#8').animate({backgroundColor:'#ff999'},1000,'swing',function(){playStuff(207.65)});}
 					);};
 				},3200);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#9',1);}, 2001);
+				window.setInterval(function(){moveTriangles('#9',1);}, 3301);
 				document.getElementById("9").onclick = function(){$('#9').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#9').animate({backgroundColor:'#6600cc'},1000,'swing',function(){playStuff(55);});}
 					);};
 				},4900);
 
 			window.setTimeout(function(){
-				window.setInterval(function(){moveTriangles('#10',1);}, 2001);
+				window.setInterval(function(){moveTriangles('#10',1);}, 2701);
 				document.getElementById("10").onclick = function(){$('#10').animate({width:'+=5vw',height:'+=5vw'},1000,'swing',
 						function(){$('#10').animate({backgroundColor:'#ffff00'},1000,'swing',function(){playStuff(415.30);});}
 					);};
